@@ -1,3 +1,4 @@
+using PartnerTransactionAPI.Services;
 using PartnerTransactionAPI.Utilities;
 using PartnerTransactionAPI.Validators;
 
@@ -10,7 +11,7 @@ builder.Services.Configure<List<PartnerConfig>>(builder.Configuration.GetSection
 
 // register validator
 builder.Services.AddScoped<SubmitTrxValidator>();
-
+builder.Services.AddScoped<DiscountService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -8,7 +8,6 @@ namespace PartnerTransactionAPI.Utilities
         {
             "password", "partnerpassword", "secret", "token"
         };
-
         public static string Sanitize<T>(T obj)
         {
             if (obj == null) return string.Empty;

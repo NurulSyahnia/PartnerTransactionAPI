@@ -1,10 +1,8 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace PartnerTransactionAPI.Services
+﻿namespace PartnerTransactionAPI.Services
 {
     public class DiscountService
     {
-        public static (long totalDiscount, long finalAmount) CalculateDiscount(long totalAmount)
+        public  (long totalDiscount, long finalAmount) CalculateDiscount(long totalAmount)
         {
             double baseDiscount = 0;
 
@@ -30,8 +28,7 @@ namespace PartnerTransactionAPI.Services
 
             return (discountAmount, finalAmount);
         }
-
-        private static bool IsPrime(long amount)
+        private bool IsPrime(long amount)
         {
             if (amount <= 1) return false;
             if (amount == 2) return true;
@@ -44,12 +41,11 @@ namespace PartnerTransactionAPI.Services
 
             return true;
         }
-        private static decimal ConvertToRinggit(long amountSen)
+        private decimal ConvertToRinggit(long amountSen)
         {
             return amountSen / 100.0m;
         }
-
-        private static bool IsLastDigitFive(decimal amountInRM)
+        private bool IsLastDigitFive(decimal amountInRM)
         {
             int wholeRinggit = (int)Math.Floor(amountInRM);
             return wholeRinggit % 10 == 5;

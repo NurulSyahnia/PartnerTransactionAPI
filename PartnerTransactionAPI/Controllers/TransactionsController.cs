@@ -12,10 +12,12 @@ namespace PartnerTransactionAPI.Controllers
     {
         private readonly ILogger<TransactionsController> _logger;
         private readonly SubmitTrxValidator _validator;
-        public TransactionsController(ILogger<TransactionsController> logger, SubmitTrxValidator validator)
+        private readonly DiscountService _discountService;
+        public TransactionsController(ILogger<TransactionsController> logger, SubmitTrxValidator validator, DiscountService discountService)
         {
             _logger = logger;
             _validator = validator;
+            _discountService = discountService;
         }
 
         [HttpPost]
@@ -26,12 +28,12 @@ namespace PartnerTransactionAPI.Controllers
             var validation = _validator.Validate(req);
             if (!validation.IsValid)
             {
-                var responseError = new SubmitTrxResponse { result = 0, resultmessage = validation.ErrorMessage };
+                var responseError = new { result = 0, resultmessage = validation.ErrorMessage };
                 _logger.LogWarning("Validation failed. Response: {Response}", LogSanitizer.Sanitize(responseError));
                 return BadRequest(responseError); 
             }
 
-            var (totalDiscount, finalAmount) = DiscountService.CalculateDiscount(req.totalamount);
+            var (totalDiscount, finalAmount) = _discountService.CalculateDiscount(req.totalamount);
 
             var response = new SubmitTrxResponse
             {

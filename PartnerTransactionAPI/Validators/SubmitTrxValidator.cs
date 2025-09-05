@@ -2,8 +2,6 @@
 using PartnerTransactionAPI.Controllers;
 using PartnerTransactionAPI.Models;
 using PartnerTransactionAPI.Utilities;
-using System;
-using System.Linq;
 using System.Text;
 
 namespace PartnerTransactionAPI.Validators
@@ -24,7 +22,6 @@ namespace PartnerTransactionAPI.Validators
             _logger.LogWarning(messageToLog);
             return ValidationResult.Fail(userMessage);
         }
-
         public ValidationResult Validate(SubmitTrxRequest req)
         {
             if (string.IsNullOrEmpty(req.partnerkey)) 
